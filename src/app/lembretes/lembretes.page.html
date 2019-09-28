@@ -1,0 +1,77 @@
+<ion-header no-border>
+  <ion-toolbar>
+  <ion-title  class='titulo' *ngIf="deveExibirPaginaLembretes()"><strong> Alertas</strong></ion-title>
+  <ion-title  class='titulo' *ngIf="deveExibirPaginaServicos()"><strong> Serviços</strong></ion-title>
+  <ion-title  class='titulo' *ngIf="deveExibirPaginaPetshops()"><strong> PetShop</strong></ion-title>
+
+<ion-item class="petAtual" (click)="exibirPerfil($event)">
+  <ion-avatar slot="start" >
+      <img [src]= "pet.foto"/>
+    </ion-avatar>
+    <ion-label>
+      <h1><strong>{{pet.nome}}</strong></h1>
+      <h3>{{pet.idade}}</h3>
+      </ion-label>
+</ion-item>
+<img  class="barra" src = './assets/barra.svg'/>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div *ngIf="deveExibirPaginaLembretes()">
+<ion-title class="bar" >Lembrentes:</ion-title>
+</div>
+
+
+<div *ngIf="deveExibirPaginaServicos()">
+<ion-title class="bar" >Agendamento de serviço:</ion-title>
+    <ion-item>
+    <ion-label position="floating">Selecionar serviço:</ion-label>
+    <ion-select value="consulta" okText="OK">
+    <ion-select-option>consulta</ion-select-option>
+    <ion-select-option>Banho</ion-select-option>
+    <ion-select-option>Banho e Tosa</ion-select-option>
+    <ion-select-option>Vacina</ion-select-option>
+    <ion-select-option>Ração</ion-select-option>
+    </ion-select></ion-item>
+<ion-row>
+  <ion-col align-self-start>    
+<ion-item>
+  <ion-label position="stacked">Data (dia e mês):</ion-label>
+  <ion-datetime displayFormat="DD/MM"></ion-datetime>
+</ion-item>
+ </ion-col>
+<ion-col align-self-end>
+<ion-item>
+  <ion-label position="stacked">hora:</ion-label>
+  <ion-datetime displayFormat="HH:mm" min="08:00" max="17:00" minuteValues="0,30"></ion-datetime>
+</ion-item>
+ </ion-col>
+</ion-row>
+<ion-button color="success" expand="full" shape="round">agendar</ion-button>
+</div>
+
+
+<div *ngIf="deveExibirPaginaPetshops()">
+<p>petshops teste</p>
+</div>
+
+<ion-fab vertical="bottom">
+<ion-segment (ionChange)="segmentChanged($event)"  [value]="paginaAtiva"  position="floating">
+<ion-segment-button (click)="irParaPaginaHome()">
+    <img class='button' src="./assets/icon/home.svg"/>
+  </ion-segment-button>
+  <ion-segment-button color="success" value="lembretes" checked >
+      <img class='button' src="./assets/icon/lembretes.svg"/>
+    </ion-segment-button>
+ <ion-segment-button value="servicos">
+      <img class='button' src="./assets/icon/servicos.svg"/>
+  </ion-segment-button>
+ <ion-segment-button value="petshop">
+      <img class='button' src="./assets/icon/petshop.svg"/>
+  </ion-segment-button>
+</ion-segment>
+</ion-fab>
+</ion-content>

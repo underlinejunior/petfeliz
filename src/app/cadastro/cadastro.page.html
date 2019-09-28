@@ -1,0 +1,71 @@
+<ion-header no-border>
+  <ion-toolbar>
+  <ion-label class='titulo'><strong>Cadastrar Pet</strong></ion-label>
+  
+  <img  class='atual' src="/assets/barra.svg">
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-item>
+<ion-label position="floating">* Nome do pet:</ion-label>
+<ion-input required="true" placeholder="Informe o nome do pet"></ion-input>
+</ion-item>
+
+<ion-row>
+  <ion-col align-self-start>
+    <ion-item>
+    <ion-label required="true" position="floating">* Tipo:</ion-label>
+    <ion-select value="cão" okText="OK">
+    <ion-select-option>cão</ion-select-option>
+    <ion-select-option>gato</ion-select-option>
+    <ion-select-option>coelho</ion-select-option>
+    <ion-select-option>rato</ion-select-option>
+    <ion-select-option>outro</ion-select-option>
+    </ion-select></ion-item>
+  </ion-col>
+
+  <ion-col align-self-end>
+    <ion-item>
+    <ion-label position="floating">* Raça:</ion-label>
+    <ion-input required="true" placeholder="raça do pet"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col align-self-start>
+<ion-item color="sucess">
+    <ion-label position="floating">* Sexo:</ion-label>
+    <ion-select required="true" value="f" okText="OK">
+      <ion-select-option value="f">Femea</ion-select-option>
+      <ion-select-option value="m">Macho</ion-select-option>
+    </ion-select>
+  </ion-item>
+ </ion-col>
+
+  <ion-col align-self-end>
+<ion-item>
+  <ion-label position="stacked">* Data Nascimento:</ion-label>
+  <ion-datetime required="true" displayFormat="DD/MM/YYYY" min="1994-14-03" max="2019-12-09"></ion-datetime>
+</ion-item>
+ </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col align-self-start>
+   <ion-item color="sucess">
+<ion-label position="floating">Cor dos olhos:</ion-label>
+<ion-input placeholder="cor dos olhos"></ion-input></ion-item></ion-col>
+  <ion-col align-self-end>
+    <ion-item>
+<ion-label position="floating">cor do pêlo:</ion-label>
+<ion-input placeholder="pelagem"></ion-input></ion-item></ion-col>
+</ion-row>
+
+<ion-item>
+    <ion-label position="floating">observações:</ion-label>
+    <ion-textarea spellcheck="true"></ion-textarea>
+</ion-item>
+<ion-button color="success" (click)="irParaPaginaInicial()" expand="full" shape="round">Cadastrar</ion-button>
+</ion-content>

@@ -1,0 +1,35 @@
+.titulo{
+    position: absolute;
+    top: 7px;
+    margin-right:0px;
+    margin-left:70%;
+    --background: rgba(0, 0, 0, 0.0) ;//(R,G,B,Transparency) 
+  }
+  ion-label{font-size:10px;}
+  .bar{
+    font-size:18px;
+    color:white;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding:10px;
+  }
+  img.button{
+    width:60px;
+    height:60px;
+    color:white;
+  }
+  ion-segment{
+    --background-checked:rgba(255, 255, 255, 0.3);
+    --color-checked:rgba(255, 255, 255, 0.3);
+  }
+  ion-item{ --border-radius:100px;}
+
+.petAtual{
+  position:absolute;
+  top:10px;
+  --background:rgba(255, 255, 255, 0.3);  
+}
+ion-avatar{
+  width: 120px;
+  height: 100px;
+  margin:0 0 0 -15px;
+}
