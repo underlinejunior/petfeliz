@@ -53,7 +53,6 @@ export class LembretesPage implements OnInit {
   async exibirPerfil(pet: listaPets) {
     const popover = await this.ppvCtrl.create({
       component: PerfilComponent,
-      event : pet,
       componentProps: { id: 1, nome: 'Zuma', idade: '1 ano e 9 meses', foto: './assets/avatar.png'}
     });
     return await popover.present();
