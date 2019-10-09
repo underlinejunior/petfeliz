@@ -1,23 +1,45 @@
 <ion-header no-border>
   <ion-toolbar>
-    
-    <img src = './assets/barra.svg'/>
+
+    <img src='./assets/barra.svg' />
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-title class="bar">LOGIN</ion-title>
-<ion-item><ion-label><strong>Usuário:</strong></ion-label><ion-input placeholder="informe seu usuário"></ion-input></ion-item>
-<ion-item><ion-label><strong>Senha:</strong></ion-label><ion-input #passwordEyeRegister [type]="passwordTypeInput" placeholder="digite sua senha"></ion-input>
-  <ion-button color="secondary" slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
-    <ion-icon [name]="iconpassword"></ion-icon></ion-button></ion-item>
-<ion-fab horizontal="end"><p class="texto"><b><i>cadastrar</i></b></p></ion-fab>
-    <ion-item></ion-item>
+  <ion-title class="bar">LOGIN</ion-title>
+  <form>
+    <ion-item>
+      <ion-label><strong>Nome:</strong></ion-label>
+      <ion-input placeholder="informe seu nome" name="name"></ion-input>
+    </ion-item>
 
-<ion-button expand="full" shape="round" (click)='irParaPaginaHome()'>logar</ion-button>
-<ion-item class="texto">ou faça login com:
-<ion-button class='textbtnface' fill="clear"><ion-icon class="logo" name="logo-facebook"></ion-icon>facebook</ion-button>
-<ion-button class='textbtngoogle'fill="clear"><ion-icon class="logo" name="logo-google"></ion-icon>google</ion-button>
-</ion-item>
+    <ng-container *ngIf="!configs.cadastrar">
+      <ion-item>
+        <ion-label><strong>Email</strong></ion-label>
+        <ion-input placeholder="informe seu email" required></ion-input>
+      </ion-item>
+    </ng-container>
+
+    <ion-item>
+      <ion-label><strong>Senha:</strong></ion-label>
+      <ion-input #passwordEyeRegister [type]="passwordTypeInput" placeholder="Password" required></ion-input>
+
+      <ion-button color="secondary" slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+        <ion-icon [name]="iconpassword"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-button expand="block" shape="round" type="submit" (click)="irParaPaginaHome()"> {{configs.action}}
+    </ion-button>
+  </form>
+
+  <ion-button expand="full" shape="round" (click)="changeAuthAction()"> {{configs.actionChange}} </ion-button>
+  <ion-item class="texto">ou faça login com:
+    <ion-button class='textbtnface' fill="clear">
+      <ion-icon class="logo" name="logo-facebook"></ion-icon>facebook
+    </ion-button>
+    <ion-button class='textbtngoogle' fill="clear">
+      <ion-icon class="logo" name="logo-google"></ion-icon>google
+    </ion-button>
+  </ion-item>
 
 </ion-content>
