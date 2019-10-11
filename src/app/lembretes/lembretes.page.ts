@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController, PopoverController } from '@ionic/angular';
 import { listaPets } from '../home/listmodel';
 import { PerfilComponent } from '../perfil/perfil.component';
+import { Globalization } from '@ionic-native/globalization';
 
 @Component({
   selector: 'app-lembretes',
@@ -10,7 +11,7 @@ import { PerfilComponent } from '../perfil/perfil.component';
 })
 export class LembretesPage implements OnInit {
 
-  paginaAtiva='lembretes';
+  paginaAtiva = 'lembretes';
 
   pet: listaPets = { id: 1, nome: 'Zuma', idade: '1 ano e 9 meses', foto: './assets/avatar.png' };
 
@@ -21,29 +22,34 @@ export class LembretesPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private mdlCtrl: ModalController,
-    private ppvCtrl: PopoverController
+    private ppvCtrl: PopoverController,
+    //private traduzir: Globalization,
   ) { }
 
   ngOnInit() {
   }
-  
-  private irParaPagina(pagina:string){
-    this.navCtrl.navigateForward(pagina,);
+
+/*this.traduzir.getPreferredLanguage()
+  .then(res => console.log(res))
+  .catch(e => console.log(e));
+  */
+  private irParaPagina(pagina: string){
+    this.navCtrl.navigateForward(pagina, );
 }
   
-  irParaPaginaHome() {
+irParaPaginaHome() {
     this.irParaPagina('home');
   }
 
-  deveExibirPaginaLembretes() {
+deveExibirPaginaLembretes() {
     return this.deveExibirPagina('lembretes');
   }
 
-  deveExibirPaginaServicos() {
+deveExibirPaginaServicos() {
     return this.deveExibirPagina('servicos');
   }
 
-  deveExibirPaginaPetshops() {
+deveExibirPaginaPetshops() {
     return this.deveExibirPagina('petshop');
   }
 

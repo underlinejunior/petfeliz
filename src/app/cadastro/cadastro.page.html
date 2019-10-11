@@ -1,7 +1,9 @@
 <ion-header no-border>
   <ion-toolbar>
   <ion-label class='titulo'><strong>Cadastrar Pet</strong></ion-label>
-  
+  <ion-avatar slot="start">
+    <img src= "{{ photo }}"/>
+  </ion-avatar>
   <img  class='atual' src="/assets/barra.svg">
   </ion-toolbar>
 </ion-header>
@@ -67,5 +69,13 @@
     <ion-label position="floating">observações:</ion-label>
     <ion-textarea spellcheck="true"></ion-textarea>
 </ion-item>
+
+<ion-item>
+  <ion-button (click)="takePicture()">
+    <ion-label>adicionar foto:</ion-label>
+    <ion-icon name="camera"></ion-icon>
+  </ion-button>
+</ion-item>
+
 <ion-button color="success" (click)="irParaPaginaInicial()" expand="full" shape="round">Cadastrar</ion-button>
 </ion-content>
