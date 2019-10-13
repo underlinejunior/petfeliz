@@ -7,19 +7,19 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
 })
-export class CadastroPage{
-  photo: string = '';
- 
+export class CadastroPage {
+  photo: any;
+
   constructor(
     private navCtrl: NavController,
     private camera: Camera) {
     }
-  
-  private irParaPagina(pagina:string){
-      this.navCtrl.navigateForward(pagina,);
+
+  private irParaPagina(pagina: string) {
+      this.navCtrl.navigateForward(pagina, );
   }
-  irParaPaginaInicial(){
-      this.irParaPagina("home");
+  irParaPaginaInicial() {
+      this.irParaPagina('home');
   }
 
   takePicture() {
@@ -29,21 +29,15 @@ export class CadastroPage{
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      allowEdit: true,
-      targetWidth: 100,
-      targetHeight: 100
-  }
+      allowEdit: true
+  };
 
-    this.camera.getPicture(options)
-      .then((imageData) => {
-        let base64image = 'data:image/jpeg;base64,' + imageData;
+    this.camera.getPicture(options).then((imageData) => {
+        const base64image = 'data:image/jpeg;base64,' + imageData;
         this.photo = base64image;
-
-      }, (error) => {
-        console.error(error);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
+    }, (err) => {
+      console.log("Camera issue:" + err);
+    });
   }
 }
+

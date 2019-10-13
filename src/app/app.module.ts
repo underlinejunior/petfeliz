@@ -26,7 +26,6 @@ import { Camera } from '@ionic-native/camera/ngx';
     SplashScreen,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    
     //Globalization,
   ],
   bootstrap: [AppComponent]
