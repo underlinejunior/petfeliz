@@ -5,7 +5,7 @@
   <ion-title  class='titulo' *ngIf="deveExibirPaginaPetshops()"><strong> PetShop</strong></ion-title>
 
 <ion-item class="petAtual" (click)="exibirPerfil($event)">
-  <ion-avatar slot="start" >
+  <ion-avatar class="petAtual" slot="start" >
       <img [src]= "pet.foto"/>
     </ion-avatar>
     <ion-label>
@@ -21,7 +21,17 @@
 <ion-content>
 
 <div *ngIf="deveExibirPaginaLembretes()">
-<ion-title class="bar" >Lembrentes:</ion-title>
+<ion-title class="bar" >Lembretes:</ion-title>
+<ion-item class="lembretes" *ngFor="let i of alert">
+  <ion-avatar class="lembretes" slot="start">
+    <img [src] = 'verificarTitulo(i)' />
+  </ion-avatar>
+  <ion-label>
+    <h2><strong>{{i.titulo}}</strong></h2>
+    <h3>aplicado em: {{i.aplicacao|date:'dd/MM/yyyy'}}</h3>
+    <h3><strong>reaplicar em: {{i.validade|date:'dd/MM/yyyy'}}</strong></h3>
+  </ion-label>
+</ion-item>
 </div>
 
 
@@ -57,6 +67,8 @@
 <div *ngIf="deveExibirPaginaPetshops()">
 <p>petshops teste</p>
 </div>
+
+
 
 <ion-fab vertical="bottom">
 <ion-segment (ionChange)="segmentChanged($event)"  [value]="paginaAtiva"  position="floating">

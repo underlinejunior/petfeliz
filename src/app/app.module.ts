@@ -1,5 +1,5 @@
-//import { TranslateModule } from '@ngx-translate/core';
-import { NgModule } from '@angular/core';
+
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -12,13 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FormBuilder } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
-//import { Globalization } from '@ionic-native/globalization';
 
 @NgModule({
+  
   declarations: [AppComponent, PerfilComponent ],
   entryComponents: [PerfilComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, 
-    //TranslateModule.forRoot() 
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule
   ],
   providers: [
     FormBuilder,

@@ -23,13 +23,22 @@
   }
   ion-item{ --border-radius:100px;}
 
-.petAtual{
+ion-item.petAtual{
   position:absolute;
   top:10px;
   --background:rgba(255, 255, 255, 0.3);  
 }
-ion-avatar{
+ion-avatar.petAtual{
   width: 120px;
   height: 100px;
   margin:0 0 0 -15px;
+}
+ion-item.lembretes{
+  top:10px;
+  --background:rgba(13, 63, 0, 0.3); 
+}
+ion-avatar.lembretes{
+  width: 80px;
+  height: 80px;
+  margin:0 0 -5px 0;
 }

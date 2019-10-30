@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,7 +13,8 @@ export class CadastroPage {
 
   constructor(
     private navCtrl: NavController,
-    private camera: Camera) {
+    private camera: Camera,
+    private sn: DomSanitizer) {
     }
 
   private irParaPagina(pagina: string) {
@@ -33,8 +35,7 @@ export class CadastroPage {
   };
 
     this.camera.getPicture(options).then((imageData) => {
-        const base64image = 'data:image/jpeg;base64,' + imageData;
-        this.photo = base64image;
+      this.photo = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       console.log("Camera issue:" + err);
     });

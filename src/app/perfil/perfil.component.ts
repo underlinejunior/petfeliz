@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -11,6 +12,6 @@ export class PerfilComponent{
   @Input() foto: string;
   @Input() idade: string;
 
-  constructor() { }
+  constructor(navParams: NavParams) {  }
 
 }
