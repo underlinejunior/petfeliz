@@ -1,6 +1,9 @@
+import { PetService } from '../services/pet.service';
 import { Component } from '@angular/core';
-import { listaPets } from './listmodel';
-import { NavController } from '@ionic/angular';
+import { Pet } from './listmodel';
+import { LoadingController, ToastController, NavController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,23 +12,55 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage {
 
-  paginaAtiva: 'pets';
-  pets: Array<listaPets> = [
-    {id:1, nome:"Zuma", idade: "1 ano e 9 meses", foto:"./assets/avatar.png"},
-    {id:2, nome:"Skye", idade: "1 ano e 5 meses", foto:"./assets/avatar.svg"}
-  ];
+  private loading: any;
+  public pets = new Array<Pet>();
+  private petsSubscription: Subscription;
 
-    constructor(
-    private navCtrl: NavController,
-  ) {}
-  
-  private irParaPagina(pagina:string){
-      this.navCtrl.navigateForward(pagina,);
+  paginaAtiva: 'pets';
+
+
+  constructor(
+    private authService: AuthService,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private petService: PetService,
+    private navCtrl: NavController
+  ) {
+    this.petsSubscription = this.petService.getPets().subscribe(data => {
+      this.pets = data;
+    });
   }
-  irParaPaginaLembretes(){
-      this.irParaPagina("lembretes");
+
+  async presentLoading() {
+      this.loading = await this.loadingCtrl.create({ message: 'Aguarde...' });
+      return this.loading.present();
+    }
+
+  async deletePet(id: string) {
+    try {
+      await this.petService.deletePet(id);
+    } catch (error) {
+      this.presentToast('Erro ao tentar deletar');
+    }
   }
-  irParaPaginaCadastro(){
-      this.irParaPagina("cadastro");
+
+  async logout() {
+    await this.presentLoading();
+
+    try {
+      await this.authService.logout();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.loading.dismiss();
+    }
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({ message, duration: 2000 });
+    toast.present();
+  }
+  irParaPaginaCadastro(cadastro) {
+    this.navCtrl.navigateForward('cadastro');
   }
 }

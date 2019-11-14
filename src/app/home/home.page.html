@@ -1,27 +1,32 @@
 <ion-header no-border>
   <ion-toolbar>
-<img src = './assets/barra.svg'/>
+    <img src='./assets/barra.svg' />
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list *ngFor="let i of pets">
- <ion-item (click)="irParaPaginaLembretes()" >
-    <ion-avatar slot="start" ><img [src]= "i.foto"/></ion-avatar>
-    <ion-label>
-      <h2><strong>{{i.nome}}</strong></h2>
-      <h3>{{i.idade}}</h3>
-    </ion-label>
-  </ion-item>
-  
-</ion-list>
+    <ion-item (click)="irParaPaginaLembretes()">
+      <ion-avatar slot="start"><img [src]="i.foto" /></ion-avatar>
+      <ion-label>
+        <h2><strong>{{i.name}}</strong></h2>
+        <h3>{{i.raca}}</h3>
+        <h3>{{i.nasc}}</h3>
+      </ion-label>
+    </ion-item>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-<ion-fab-button>
-<ion-icon color="success" class="add" name="add-circle" (click)="irParaPaginaCadastro()" color="primary"> </ion-icon>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon color="success" class="add" name="add-circle" (click)="irParaPaginaCadastro()" color="primary">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+<ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <ion-fab-button>
+<ion-button (click)="logout()" color="danger">Sair</ion-button>
 </ion-fab-button>
 </ion-fab>
-
-
 </ion-content>

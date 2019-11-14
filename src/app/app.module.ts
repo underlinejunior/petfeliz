@@ -1,5 +1,5 @@
-
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { environment } from './../environments/environment';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -9,23 +9,31 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PerfilComponent } from './perfil/perfil.component';
+
 import { FormBuilder } from '@angular/forms';
-import { Camera } from '@ionic-native/camera/ngx';
+import { PerfilComponent } from './perfil/perfil.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 
 @NgModule({
-  
-  declarations: [AppComponent, PerfilComponent ],
+  declarations: [AppComponent, PerfilComponent],
   entryComponents: [PerfilComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule
+  imports: [BrowserModule,
+     IonicModule.forRoot(),
+     AppRoutingModule,
+    AppRoutingModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [
-    FormBuilder,
     StatusBar,
+    FormBuilder,
     SplashScreen,
-    Camera,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    //Globalization,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

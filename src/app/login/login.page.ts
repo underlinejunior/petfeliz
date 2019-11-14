@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonSlides, LoadingController, ToastController } from '@ionic/angular';
+import { User } from '../home/listmodel';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
+  @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   passwordTypeInput = 'password';
   iconpassword = 'eye-off';
-  authForm: FormGroup;
-  configs = {
-    cadastrar: true,
-    action: 'Logar',
-    actionChange: 'Cadastrar'
-  };
-
+  public userLogin: User = {};
+  public userRegister: User = {};
+  private loading: any;
+  public confirma;
+  public logado;
+  
   constructor(
     private navCtrl: NavController,
-    private fb: FormBuilder,
+    private authService: AuthService,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+
   ) {
   }
 
@@ -28,46 +34,67 @@ export class LoginPage implements OnInit {
     this.iconpassword = this.iconpassword === 'eye-off' ? 'eye' : 'eye-off';
   }
 
-  private irParaPagina(pagina) {
-    this.navCtrl.navigateForward(pagina);
-  }
-  irParaPaginaHome() {
-    this.irParaPagina('home');
-  }
-  changeAuthAction() {
-    this.configs.cadastrar = !this.configs.cadastrar;
-    const logar = this.configs;
-    this.configs.action = logar ? 'Login' : 'Cadastre-se';
-    this.configs.actionChange = logar ? 'Cadastrar' : 'Já Sou Cadastrado';
-  }
   ngOnInit(): void {
-    this.login();
-  }
-  private login(): void {
-    this.authForm = this.fb.group({
-      name: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ])),
-      password: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.maxLength(25),
-        Validators.minLength(6),
-        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-      ])),
-    });
   }
 
-  get name(): FormControl {
-    return this.authForm.get('name') as FormControl;
+  segmentChanged(event) {
+    if (event.detail.value === 'login') {
+      this.slides.slidePrev();
+    } else {
+      this.slides.slideNext();
+    }
+  }
+  async login() {
+    await this.presentLoading();
+
+    try {
+      await this.authService.login(this.userLogin);
+    } catch (error) {
+      this.presentToast(error.message);
+    } finally {
+      this.loading.dismiss();
+    }
   }
 
-  get email(): FormControl {
-    return this.authForm.get('email') as FormControl;
+  async register() {
+    await this.presentLoading();
+
+    try {
+      if (this.userRegister.password === this.userRegister.passwordConfim) {
+        await this.authService.register(this.userRegister);
+        this.logado = 'cadastro realizado com sucesso!';
+        this.confirma = ''; }
+      else { this.confirma = 'senha não confere'; }
+    } catch (error) {
+      let message: string;
+
+      switch(error.code){
+        case 'auth/email-already-in-use':
+          message="email já cadastrado!";
+          break;
+        case 'auth/invalid-email':
+          message="email INVALIDO!";
+          break;
+        case 'auth/invalid-password':
+          message="senha deve ter 6 caracteres ou mais!";
+          break;
+      }
+      this.presentToast(message);
+
+    } finally {
+      this.loading.dismiss();
+  ;
+    }
   }
 
-  get password(): FormControl {
-    return this.authForm.get('password') as FormControl;
+
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({ message: 'Aguarde...' });
+    return this.loading.present();
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({ message, duration: 5000 });
+    toast.present();
   }
 }
